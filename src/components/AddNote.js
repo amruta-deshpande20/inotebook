@@ -2,14 +2,16 @@ import React, { useState } from "react";
 import { useContext } from "react";
 import noteContext from "../context/Notes/noteContext";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const AddNote = () => {
   const context = useContext(noteContext);
   const { notes, addNote } = context;
+  const navigate = useNavigate();
 
   const [note, setNote] = useState({
     title: " ",
-    descritption: " ",
+    description: " ",
     tag: "default",
   });
 
@@ -19,7 +21,9 @@ export const AddNote = () => {
 
   const handleClick = (e) => {
     e.preventDefault();
-    addNote(note.title, note.descritption, note.tag);
+    addNote(note.title, note.description, note.tag);
+    setNote({ title: "", description: "", tag: "default" });
+    navigate("/notes");
   };
 
   const onChange = (e) => {
